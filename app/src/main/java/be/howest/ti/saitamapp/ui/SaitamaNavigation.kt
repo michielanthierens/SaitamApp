@@ -9,6 +9,7 @@ import androidx.navigation.NavHostController
 import be.howest.ti.saitamapp.model.Navigation
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import be.howest.ti.saitamapp.ui.tabs.Progress
 
 
 @Composable
@@ -25,20 +26,16 @@ fun SaitamaNavigation(
         composable(Navigation.SETTINGS.name) {
             Text(text = "test1")
 
-            // Composable content for SETTINGS destination
-            // Replace with your desired content for SETTINGS destination
+
         }
         composable(Navigation.PROGRESS.name) {
-            Text(text = "test2")
+            Progress()
 
-            // Composable content for PROGRESS destination
-            // Replace with your desired content for PROGRESS destination
         }
         composable(Navigation.OVERVIEW.name) {
             Text(text = "test3")
 
-            // Composable content for OVERVIEW destination
-            // Replace with your desired content for OVERVIEW destination
+
         }
     }
 }
