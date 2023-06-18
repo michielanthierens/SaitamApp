@@ -19,7 +19,7 @@ fun SaitamaNavigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Navigation.SETTINGS.name, // Set the start destination
+        startDestination = Navigation.PROGRESS.name, // Set the start destination
         modifier = modifier.padding(innerPadding)
     ) {
         composable(Navigation.SETTINGS.name) {

@@ -42,13 +42,14 @@ fun SaitamApp(
             navController = navController,
             modifier = modifier,
             innerPadding = innerPadding,
-
         )
         Column(modifier = Modifier.fillMaxSize()) {
             Spacer(modifier = Modifier.weight(1f))
 
             NavBar(
-
+                onSettingsClicked = { navController.navigate(Navigation.SETTINGS.name )},
+                onProgressClicked = { navController.navigate(Navigation.PROGRESS.name )},
+                onOverviewClicked = { navController.navigate(Navigation.OVERVIEW.name )}
             )
         }
     }
@@ -65,6 +66,13 @@ fun SaitamaTopBar (
             .background(color = MaterialTheme.colors.primary),
         verticalAlignment = Alignment.CenterVertically
     ) {
+        Image(
+            modifier = Modifier
+                .size(80.dp)
+                .padding(0.dp),
+            painter = painterResource(id = R.drawable.saitama_icon),
+            contentDescription = null
+        )
         Text(
             text = stringResource(currentScreenTitle),
             style = MaterialTheme.typography.h1
@@ -78,10 +86,9 @@ fun NavBar (
     onSettingsClicked: () -> Unit = {},
     onProgressClicked: () -> Unit = {},
     onOverviewClicked: () -> Unit = {},
-    modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
             .background(MaterialTheme.colors.primary),
