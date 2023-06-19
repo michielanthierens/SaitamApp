@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import be.howest.ti.saitamapp.model.ProgressDay
 
-@Database(entities = [ProgressDay::class], version = 1, exportSchema = false)
+@Database(entities = [ProgressDay::class], version = 2, exportSchema = false)
 abstract class ProgressDatabase : RoomDatabase() {
 
     abstract fun progressDao(): ProgressDao

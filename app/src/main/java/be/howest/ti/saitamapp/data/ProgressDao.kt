@@ -12,7 +12,7 @@ interface ProgressDao {
     fun getAllProgressDays(): Flow<List<ProgressDay>>
 
     @Query("SELECT * from progress WHERE date = :date")
-    fun getProgressDay(date: String): Flow<ProgressDay>
+    fun getProgressDay(date: String): ProgressDay?
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addProgressDay(progressDay: ProgressDay)

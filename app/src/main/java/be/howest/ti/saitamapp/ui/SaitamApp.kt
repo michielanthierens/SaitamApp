@@ -1,5 +1,6 @@
 package be.howest.ti.saitamapp.ui
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -23,9 +24,11 @@ import be.howest.ti.saitamapp.R
 
 @Composable
 fun SaitamApp(
+    context: Context,
+    modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    modifier: Modifier = Modifier
-) {
+    ) {
+    val database = createDatabase(applicationContext = context)
 
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentScreen = Navigation.valueOf(
@@ -42,6 +45,7 @@ fun SaitamApp(
             navController = navController,
             modifier = modifier,
             innerPadding = innerPadding,
+            database = database
         )
         Column(modifier = Modifier.fillMaxSize()) {
             Spacer(modifier = Modifier.weight(1f))
@@ -77,7 +81,6 @@ fun SaitamaTopBar (
             text = stringResource(currentScreenTitle),
             style = MaterialTheme.typography.h1
         )
-
     }
 }
 

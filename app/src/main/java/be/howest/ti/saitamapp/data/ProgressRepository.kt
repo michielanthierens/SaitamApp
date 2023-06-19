@@ -13,7 +13,7 @@ interface ProgressRepository {
     /**
      * Retrieve an item from the given data source that matches with the [id].
      */
-    fun getItemStream(date: String): Flow<ProgressDay?>
+    fun getItemStream(date: String): ProgressDay?
 
     /**
      * Insert item in the data source

@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "progress")
 data class ProgressDay(
-    @PrimaryKey(autoGenerate = true)
-    val progress : Int = 0,
-    val date : String
+    @PrimaryKey
+    val date: String,
+    val progress: Int = 0
 )

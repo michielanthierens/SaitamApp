@@ -1,5 +1,8 @@
 package be.howest.ti.saitamapp.ui.tabs
 
+import android.os.Build
+import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -10,13 +13,38 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import be.howest.ti.saitamapp.R
+import be.howest.ti.saitamapp.data.ProgressDao
+import be.howest.ti.saitamapp.data.ProgressDatabase
+import be.howest.ti.saitamapp.model.ProgressDay
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.time.LocalDate
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun Progress(
-
+    database: ProgressDatabase
 ) {
-    // temp, fetch from database
-    var progress by remember { mutableStateOf(0)}
+    val dao = database.progressDao()
+    val today = LocalDate.now().toString() // Get the current date
+    var progress by remember { mutableStateOf(0) }
+    Log.i("kilo", today)
+    LaunchedEffect(Unit) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val currentProgress = dao.getProgressDay(today)
+            if (currentProgress == null) {
+                val newProgress = ProgressDay(progress = 0, date = today)
+                dao.addProgressDay(newProgress)
+                progress = newProgress.progress
+                Log.i("kilo", "create new entry")
+            } else {
+                progress = currentProgress.progress
+                Log.i("kilo", "exsisting entry: " + currentProgress)
+
+            }
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -61,11 +89,23 @@ fun Progress(
                 horizontalArrangement = Arrangement.Center,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Button(onClick = { progress += 1 }) {
+                Button(onClick = {
+                    progress += 1
+                    val entry = ProgressDay(progress = progress, date = today)
+                    CoroutineScope(Dispatchers.IO).launch {
+                        dao.update(entry)
+                    }
+                }) {
                     Text(text = "+1")
                 }
                 Spacer(modifier = Modifier.width(16.dp))
-                Button(onClick = { progress += 10 }) {
+                Button(onClick = {
+                    progress += 10
+                    val entry = ProgressDay(progress = progress, date = today)
+                    CoroutineScope(Dispatchers.IO).launch {
+                        dao.update(entry)
+                    }
+                }) {
                     Text(text = "+10")
                 }
             }
