@@ -1,5 +1,7 @@
 package be.howest.ti.saitamapp.ui
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -9,9 +11,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import be.howest.ti.saitamapp.data.ProgressDatabase
 import be.howest.ti.saitamapp.model.Navigation
+import be.howest.ti.saitamapp.ui.tabs.Overview
 import be.howest.ti.saitamapp.ui.tabs.Progress
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun SaitamaNavigation(
     navController: NavHostController,
@@ -31,7 +35,7 @@ fun SaitamaNavigation(
             Progress(database)
         }
         composable(Navigation.OVERVIEW.name) {
-            // todo(overview)
+            Overview(database)
         }
     }
 }

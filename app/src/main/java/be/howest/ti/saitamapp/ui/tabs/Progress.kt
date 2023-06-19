@@ -13,7 +13,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import be.howest.ti.saitamapp.R
-import be.howest.ti.saitamapp.data.ProgressDao
 import be.howest.ti.saitamapp.data.ProgressDatabase
 import be.howest.ti.saitamapp.model.ProgressDay
 import kotlinx.coroutines.CoroutineScope
