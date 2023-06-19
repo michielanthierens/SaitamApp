@@ -41,7 +41,6 @@ fun Progress(
             } else {
                 progress = currentProgress.progress
                 Log.i("kilo", "exsisting entry: " + currentProgress)
-
             }
         }
     }
