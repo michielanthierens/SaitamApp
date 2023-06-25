@@ -39,7 +39,7 @@ fun Progress(
                 Log.i("kilo", "create new entry")
             } else {
                 progress = currentProgress.progress
-                Log.i("kilo", "exsisting entry: " + currentProgress)
+                Log.i("kilo", "exsisting entry: $currentProgress")
             }
         }
     }
@@ -66,10 +66,12 @@ fun Progress(
                         .rotate(-90f)
                 )
                 val iconRes = when {
-                    progress >= 75 -> R.drawable.saitama4
-                    progress >= 50 -> R.drawable.saitama3
-                    progress >= 25 -> R.drawable.saitama2
-                    else -> R.drawable.saitama1
+                    progress >= 100 -> R.drawable.saitama5
+                    progress >= 80 -> R.drawable.saitama4
+                    progress >= 60 -> R.drawable.saitama3
+                    progress >= 40 -> R.drawable.saitama2
+                    progress >= 20 -> R.drawable.saitama1
+                    else -> R.drawable.progress
                 }
                 Icon(
                     painter = painterResource(iconRes),

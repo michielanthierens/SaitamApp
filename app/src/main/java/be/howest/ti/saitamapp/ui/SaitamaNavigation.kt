@@ -6,11 +6,13 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import be.howest.ti.saitamapp.data.ProgressDatabase
 import be.howest.ti.saitamapp.model.Navigation
+import be.howest.ti.saitamapp.ui.tabs.Info
 import be.howest.ti.saitamapp.ui.tabs.Overview
 import be.howest.ti.saitamapp.ui.tabs.Progress
 
@@ -26,10 +28,12 @@ fun SaitamaNavigation(
     NavHost(
         navController = navController,
         startDestination = Navigation.PROGRESS.name, // Set the start destination
-        modifier = modifier.padding(innerPadding)
+        modifier = modifier
+            .padding(innerPadding)
+            .padding(bottom = 60.dp)
     ) {
-        composable(Navigation.SETTINGS.name) {
-            // todo(settings)
+        composable(Navigation.INFO.name) {
+            Info()
         }
         composable(Navigation.PROGRESS.name) {
             Progress(database)

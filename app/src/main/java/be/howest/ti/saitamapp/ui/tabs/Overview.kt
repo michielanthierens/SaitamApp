@@ -31,20 +31,20 @@ fun Overview(
 ) {
     val dao = database.progressDao()
     val allProgressDays by dao.getAllProgressDays().collectAsState(emptyList())
-
+    val sortedProgressDays = allProgressDays.sortedByDescending { LocalDate.parse(it.date) }
     Column(
         modifier = modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        if (allProgressDays.isEmpty()) {
+        if (sortedProgressDays.isEmpty()) {
             Text(
                 text = "No progress recorded.",
                 style = MaterialTheme.typography.subtitle1
             )
         } else {
             LazyColumn {
-                items(allProgressDays) { progressDay ->
+                items(sortedProgressDays) { progressDay ->
                     ProgressDayItem(progressDay = progressDay)
                     Divider(modifier = Modifier.padding(vertical = 8.dp))
                 }
@@ -68,10 +68,12 @@ fun ProgressDayItem(progressDay: ProgressDay) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             val iconRes = when {
-                progressDay.progress >= 75 -> R.drawable.saitama4
-                progressDay.progress >= 50 -> R.drawable.saitama3
-                progressDay.progress >= 25 -> R.drawable.saitama2
-                else -> R.drawable.saitama1
+                progressDay.progress >= 100 -> R.drawable.saitama5
+                progressDay.progress >= 80 -> R.drawable.saitama4
+                progressDay.progress >= 60 -> R.drawable.saitama3
+                progressDay.progress >= 40 -> R.drawable.saitama2
+                progressDay.progress >= 20 -> R.drawable.saitama1
+                else -> R.drawable.progress
             }
             val formatter = DateTimeFormatter.ofPattern("dd MMM", Locale.getDefault())
             val date = LocalDate.parse(progressDay.date)
@@ -86,7 +88,9 @@ fun ProgressDayItem(progressDay: ProgressDay) {
                 painter = painterResource(iconRes),
                 contentDescription = "Progress Icon",
                 tint = Color.Unspecified,
-                modifier = Modifier.padding(end = 16.dp).size(75.dp),
+                modifier = Modifier
+                    .padding(end = 16.dp)
+                    .size(75.dp),
             )
         }
     }

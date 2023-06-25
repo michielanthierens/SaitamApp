@@ -1,6 +1,8 @@
 package be.howest.ti.saitamapp.ui
 
 import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -22,6 +24,7 @@ import be.howest.ti.saitamapp.model.Navigation
 import be.howest.ti.saitamapp.R
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun SaitamApp(
     context: Context,
@@ -51,7 +54,7 @@ fun SaitamApp(
             Spacer(modifier = Modifier.weight(1f))
 
             NavBar(
-                onSettingsClicked = { navController.navigate(Navigation.SETTINGS.name )},
+                onInfoClicked = { navController.navigate(Navigation.INFO.name )},
                 onProgressClicked = { navController.navigate(Navigation.PROGRESS.name )},
                 onOverviewClicked = { navController.navigate(Navigation.OVERVIEW.name )}
             )
@@ -86,7 +89,7 @@ fun SaitamaTopBar (
 
 @Composable
 fun NavBar (
-    onSettingsClicked: () -> Unit = {},
+    onInfoClicked: () -> Unit = {},
     onProgressClicked: () -> Unit = {},
     onOverviewClicked: () -> Unit = {},
 ) {
@@ -99,7 +102,7 @@ fun NavBar (
         horizontalArrangement = Arrangement.SpaceEvenly
 
     ) {
-        NavItem(image = R.drawable.settings, onClick = onSettingsClicked)
+        NavItem(image = R.drawable.info, onClick = onInfoClicked)
         NavItem(image = R.drawable.progress, onClick = onProgressClicked)
         NavItem(image = R.drawable.overview, onClick = onOverviewClicked)
     }
@@ -113,7 +116,7 @@ fun NavItem(
 ) {
     Button(onClick = onClick, elevation = null) {
         Image(painter = painterResource(id = image), contentDescription = when (image) {
-            R.drawable.settings -> "Settings"
+            R.drawable.info -> "Info"
             R.drawable.progress -> "Progress"
             R.drawable.overview -> "Overview"
             else -> null
